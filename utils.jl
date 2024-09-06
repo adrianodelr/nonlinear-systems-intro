@@ -104,12 +104,41 @@ end
 
 # linear_harmonic_oscillator_vector_field(xlims=(-2,2),ylims=(-1,1),xh=0.15, yh=0.15)
 
+
+"""
+    solve_trajectories_2D_sys(num_phasepoints, initial_conditions, system, h, tf)
+
+Numerically solve the 2D differential equation system, given multiple initial condition. Stack resulting trajectories in a matrix   
+# Arguments
+- `num_traj::Int`: number of trajectories  
+- `initial_conditions::Vector{Float}`: Vector of initial conditions of the form [x01,y01, x02,y02, ...]  
+- `system::Function`: 2D continuous time system (autonomous) that takes in a 2D state  
+- `h::Float64`: Integration step size 
+- `tf::Float64`: Final integration 
+
+# Returns 
+- `traj::Matrix{Float64}`: Matrix where 2 rows represent the time evolution of the state 
+"""
+function solve_trajectories_2D_sys(num_traj, initial_conditions, system, h, tf)
+    # Solve numerically for some trajectories, given random initial conditions 
+    traj = zeros(2num_traj,Int(tf/h)+1)
+    traj[:,1] = initial_conditions
+    for k in eachindex(h:h:tf)
+        for j in 1:num_traj
+            is = 2j-1
+            ie = 2j
+            traj[is:ie,k+1] = rk4(traj[is:ie,k],h,system)
+        end 
+    end
+    return traj 
+end
+
 """
     linear_harmonic_oscillator_phase_portrait(;num_phasepoints=5, tf=10, h=0.01,xlims=(-1,1),ylims=(-1,1),xh=0.15, yh=0.15)
 
 Plot the phase portrait of a linear harmonic oscillator, with randomly initialized trajectories   
 # Arguments
-- `num_phasepoints::Int`: number of trajectories  
+- `num_traj::Int`: number of trajectories  
 - `tf::Float64`: Final time of the trajectories 
 - `h::Float64`: Integration step size 
 - `xlims::Tuple{Float64,Float64}`: Lower and upper x-limit 
@@ -117,17 +146,11 @@ Plot the phase portrait of a linear harmonic oscillator, with randomly initializ
 - `xh::Float64`: Grid step size in x-direction 
 - `yh::Float64`: Grid step size in y-direction
 """
-function linear_harmonic_oscillator_phase_portrait(;num_phasepoints=5, tf=10, h=0.01,xlims=(-1,1),ylims=(-1,1),xh=0.15, yh=0.15)
-    # Solve numerically for some trajectories, given random initial conditions 
-    traj = zeros(2num_phasepoints,Int(tf/h)+1)
-    traj[:,1] = rand(2num_phasepoints)*1.25 # random initial conditions
-    for k in eachindex(h:h:tf)
-        for j in 1:num_phasepoints
-            is = 2j-1
-            ie = 2j
-            traj[is:ie,k+1] = rk4(traj[is:ie,k],h,simple_harmonic_oscillator)
-        end 
-    end 
+function linear_harmonic_oscillator_phase_portrait(;num_traj=5, tf=10, h=0.01,xlims=(-1,1),ylims=(-1,1),xh=0.15, yh=0.15)
+    # Solve numerically for some trajectories 
+    initial_conditions = rand(2num_traj)*1.25 # random initial conditions
+    traj = solve_trajectories_2D_sys(num_traj, initial_conditions, simple_harmonic_oscillator, h, tf)
+
     # plot trajectories along with streamline plots 
     f = Figure(size = (700, 400),fontsize = 24)
     ax = Axis(f[1, 1], xlabel=L"$x$ (m)",ylabel=L"$v$ (m/s)", limits = (xlims,ylims))
@@ -136,7 +159,7 @@ function linear_harmonic_oscillator_phase_portrait(;num_phasepoints=5, tf=10, h=
     strength = vec(sqrt.(xxs .^ 2 .+ yys .^ 2))
     heatmap!(ax, xxs, yys, strength, colormap = :Spectral, alpha=0.5)
     streamplot!(ax, sho, xs, ys, color=(p)->RGBf(0/255, 0/255, 0/255), gridsize= (20,20), arrow_size = 5, linewidth=0.5)
-    for j in 1:num_phasepoints
+    for j in 1:num_traj
         is = 2j-1
         ie = 2j
         lines!(ax, traj[is,:],traj[ie,:], color="black")
@@ -182,11 +205,11 @@ function uncoupled_linear_system_phase_portraits(;a = [-1.5, -1, -0.25, 0, 0.5],
     cs = ColorScheme([colorant"yellow",colorant"fuchsia",colorant"deepskyblue", colorant"seagreen1"]);
     origcolors = get(cs,0:0.01:1)
     l = 0.8 # linewidth
-    num_phasepoints = 20
+    num_traj = 20
     for j in eachindex(a)
         ax = Axis(f[1, j], title=titles[j])
         c = 1
-        for k in 1:num_phasepoints
+        for k in 1:num_traj
             x0 = rand(2)*0.5
             xi = map(t-> linear_system_solution(t,[-x0[1],x0[2]],a=a[j]),tr) |> stack
             lines!(ax, xi[1,:],xi[2,:],color=origcolors[c], linewidth=l)
@@ -211,3 +234,51 @@ function uncoupled_linear_system_phase_portraits(;a = [-1.5, -1, -0.25, 0, 0.5],
 end  
 
 # uncoupled_linear_system_phase_portraits(a = [-1.5, -1, -0.25, 0, 0.5], tr = 0:0.001:4, titles::Vector{String} = ["a)","b)","c)","d)","e)"]) 
+
+"""
+    nonlinear_system(x)
+
+Some nonlinear 2D sample system
+
+# Arguments
+- `x::Vector{Float64}`: state vector 
+"""
+function nonlinear_system(x)
+    return [x[1]+exp(-x[2]),-x[2]]
+end  
+
+
+"""
+    nonlinear_system_direction_field(;initial_conditions = [-0.5,1, -0.9,1,-2,-1, -2,-0.5 ,-1,0 ,-1.3,0 ,-0.7,0 ,-0.63215,1, -1.5,-1], h = 0.01, tf = 6, xlims=(-3,3),ylims=(-1.5,1.5),xh=0.15, yh=0.15)
+
+Plot the direction field of a nonlinear system, starting from given initial conditions
+# Arguments
+- `initial_conditions::Vector{Float}`: Vector of initial conditions of the form [x01,y01, x02,y02, ...]
+- `tf::Float64`: Final time of the trajectories 
+- `h::Float64`: Integration step size 
+- `xlims::Tuple{Float64,Float64}`: Lower and upper x-limit 
+- `ylims::Tuple{Float64,Float64}`: Lower and upper y-limit 
+- `xh::Float64`: Grid step size in x-direction 
+- `yh::Float64`: Grid step size in y-direction
+"""
+function nonlinear_system_direction_field(;initial_conditions = [-0.5,1, -0.9,1,-2,-1, -2,-0.5 ,-1,0 ,-1.3,0 ,-0.7,0 ,-0.63215,1, -1.5,-1], h = 0.01, tf = 6, xlims=(-3,3),ylims=(-1.5,1.5),xh=0.15, yh=0.15)    
+    # solve numerically for trajectories 
+    num_traj = Int(round(length(initial_conditions)/2))
+    traj = solve_trajectories_2D_sys(num_traj, initial_conditions, nonlinear_system, h, tf)
+
+    xxs,yys,xs,ys = coordinate_grid(xlims,ylims,xh,yh)
+    ns(x) = Point2f(nonlinear_system(x))
+    f = Figure(size = (700, 400))
+    ax = Axis(f[1, 1], xlabel=L"$x_1$",ylabel=L"$x_2$", limits = (xlims,ylims))
+    streamplot!(ax, ns, xs, ys, colormap = :Spectral, gridsize= (40,30), arrow_size = 0, linewidth=1)
+    for j in 1:num_traj
+        is = 2*j-1
+        ie = 2*j
+        lines!(ax, traj[is,:],traj[ie,:], color="black", linewidth=2)
+        scatter!(ax,[traj[is,1]],[traj[ie,1]], color="black")
+    end
+    f
+    return f
+end  
+
+nonlinear_system_direction_field()
