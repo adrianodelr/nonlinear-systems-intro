@@ -4,10 +4,11 @@ include("utils.jl");
 
 #### Examples and definitions in the context of linear systems (but useful for nonlinear ones)
 Strogatz explains the concept of the <font color="red">**phase space**</font> by starting from an easy two dimensional linear systems. As e.g. the *simple harmonic oscillator* characterised by 
-\begin{align*}
+
+$$\begin{align*}
     & \dot{x} = v \\
     & \dot{v} = - \frac{k}{m} x 
-\end{align*}
+\end{align*}$$
 A vector $(\dot{x},\dot{v})= (v,-\omega^2 x)$  with  $\omega^2 = \frac{k}{m}$ is assigned to each point $(x,v)$. This can be represented as a <font color="red">**vector field**</font>. 
 
 ```julia
@@ -40,29 +41,27 @@ What do the concepts of fixed points and closed orbits further tell us ?
 
 
 Some more of the differential geometry-specific language is explained by means of the <font color="red">**uncoupled**</font> linear system
-$$
-    \begin{bmatrix}
-        \dot{x}\\
-        \dot{y}\\
-    \end{bmatrix}
-    = 
-    \begin{bmatrix}
-        a & 0\\
-        0 & -1\\
-    \end{bmatrix}
-    \begin{bmatrix}
-        x\\
-        y\\
-    \end{bmatrix}
-$$ 
+$$\begin{bmatrix}
+    \dot{x}\\
+    \dot{y}\\
+\end{bmatrix}
+= 
+\begin{bmatrix}
+    a & 0\\
+    0 & -1\\
+\end{bmatrix}
+\begin{bmatrix}
+    x\\
+    y\\
+\end{bmatrix}$$ 
 
 Peforming the matrix multiplication and solving the decoupled equations by direct integration leads to:
-
+$$
 \begin{align*}
     & x(t) = x_0 e^{at} \\ 
     & y(t) = y_0 e^{-t} \\ 
 \end{align*}
-
+$$
 From these equations we can see, that $y(t)$ always decays exponentially, while the decay of $x(t)$ depends on the factor $a$. Below the the phase plots for differents values of $a$ are depicted. 
 
 
@@ -88,15 +87,11 @@ Otherwise from the crossing point as starting point two different trajectories (
 
 We linearize the system
 
-$$
-    \dot{x} = f(x,y), \quad \dot{y} = g(x,y)
-$$ 
+$$\dot{x} = f(x,y), \quad \dot{y} = g(x,y)$$ 
 
 around the fixed point $(x^*, y^*)$ 
 
-$$
-    f(x) =  f(x^*,y^*)  + \frac{\partial f}{\partial x}(x - x^*)  + \frac{\partial f}{\partial y}(y - y^*) + O((x - x^*)^2, (y - y^*)^2,(y - y^*)(x - x^*))
-$$ 
+$$ f(x) =  f(x^*,y^*)  + \frac{\partial f}{\partial x}(x - x^*)  + \frac{\partial f}{\partial y}(y - y^*) + O((x - x^*)^2, (y - y^*)^2,(y - y^*)(x - x^*)) $$ 
 since it is a fixed point $f(x^\ast,y^\ast)=0$ and $(x - x^\ast)$ and $(y - y^\ast)$ are very small, we can disregard $f(x^*,y^*)$ and the quadratic terms $O$. Doing the same for $g(x,y)$ we finally arrive at
 
 \begin{align*}
