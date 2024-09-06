@@ -201,7 +201,7 @@ function uncoupled_linear_system_phase_portraits(;a = [-1.5, -1, -0.25, 0, 0.5],
     if length(a) != length(titles)
         throw(error("number of titles not equal to number of systems (determined by lenght(a))"))
     end 
-    f = Figure(size = (1500, 300))
+    f = Figure(size = (1500, 300),fontsize = 24)
     cs = ColorScheme([colorant"yellow",colorant"fuchsia",colorant"deepskyblue", colorant"seagreen1"]);
     origcolors = get(cs,0:0.01:1)
     l = 0.8 # linewidth
@@ -233,7 +233,7 @@ function uncoupled_linear_system_phase_portraits(;a = [-1.5, -1, -0.25, 0, 0.5],
     return f
 end  
 
-# uncoupled_linear_system_phase_portraits(a = [-1.5, -1, -0.25, 0, 0.5], tr = 0:0.001:4, titles::Vector{String} = ["a)","b)","c)","d)","e)"]) 
+# uncoupled_linear_system_phase_portraits(a = [-1.5, -1, -0.25, 0, 0.5], tr = 0:0.001:4, titles = ["a)","b)","c)","d)","e)"]) 
 
 """
     nonlinear_system(x)
@@ -268,7 +268,7 @@ function nonlinear_system_direction_field(;initial_conditions = [-0.5,1, -0.9,1,
 
     xxs,yys,xs,ys = coordinate_grid(xlims,ylims,xh,yh)
     ns(x) = Point2f(nonlinear_system(x))
-    f = Figure(size = (700, 400))
+    f = Figure(size = (700, 400),fontsize = 24)
     ax = Axis(f[1, 1], xlabel=L"$x_1$",ylabel=L"$x_2$", limits = (xlims,ylims))
     streamplot!(ax, ns, xs, ys, colormap = :Spectral, gridsize= (40,30), arrow_size = 0, linewidth=1)
     for j in 1:num_traj
