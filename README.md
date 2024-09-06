@@ -126,6 +126,7 @@ where $F(x)$ is some nonlinear force. As $F$ is not dependent on $\dot{x}$, whic
 $$ m \ddot{x}  + \frac{dV}{dx} = 0 $$
 
 Multiplying the equation by $\dot{x}$ and applying the chain rule in reverse, reveals there is a quantity that stays constant over time:
+
 $$ m \dot{x} \ddot{x}  + \frac{dV}{dx}\dot{x} = 0 \implies 
     \frac{d}{dt}
     \begin{bmatrix}
