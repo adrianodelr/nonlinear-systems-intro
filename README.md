@@ -28,10 +28,7 @@ A phase point starting anywhere else, would circulate aroung the origin and pass
 ```julia
 linear_harmonic_oscillator_phase_portrait(;num_traj=5, tf=10, h=0.01,xlims=(-2,2),ylims=(-1,1),xh=0.05, yh=0.05)
 ```
-
 <img width=700 height=400 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_4_0.png"/>
-
-
 
 Here we can see a picture of some random trajectories in the phase space, all forming closed orbits. This kind of plot is calles <font color="red">**phase portrait**</font>.
 
@@ -42,6 +39,7 @@ What do the concepts of fixed points and closed orbits further tell us ?
 
 
 Some more of the differential geometry-specific language is explained by means of the <font color="red">**uncoupled**</font> linear system
+
 $$\begin{bmatrix}
     \dot{x}\\
     \dot{y}\\
@@ -57,6 +55,7 @@ $$\begin{bmatrix}
 \end{bmatrix}$$ 
 
 Peforming the matrix multiplication and solving the decoupled equations by direct integration leads to:
+
 $$\begin{align*}
     & x(t) = x_0 e^{at} \\ 
     & y(t) = y_0 e^{-t} \\ 
@@ -84,11 +83,8 @@ Otherwise from the crossing point as starting point two different trajectories (
 ##### Linearization around a fixed point
 
 <font color="red">**Linearization**</font> is done as usual by a <font color="red">**Taylor approximation**</font>:
-
 We linearize the system
-
-$$\dot{x} = f(x,y), \quad \dot{y} = g(x,y)$$ 
-
+$$ \dot{x} = f(x,y), \quad \dot{y} = g(x,y) $$ 
 around the fixed point $(x^*, y^*)$ 
 
 $$ f(x) =  f(x^*,y^*)  + \frac{\partial f}{\partial x}(x - x^*)  + \frac{\partial f}{\partial y}(y - y^*) + O((x - x^*)^2, (y - y^*)^2,(y - y^*)(x - x^*)) $$ 
@@ -121,25 +117,19 @@ The preservation of the stability property is substantiated by the <font color="
 #### (Energy) conservative systems
 
 Many important mechanical second order systems come from Newton's law $F=ma$. One example is a particle of mass $m$ moving in x-direction:
-$$
-    m \ddot{x} = F(x)
-$$
+$$ m \ddot{x} = F(x) $$
 where $F(x)$ is some nonlinear force. As $F$ is not dependent on $\dot{x}$, which means there is no damping or friction involved. The force is also not dependent on $t$ (i.e. time-independent). In this case it can be shown that the system is <font color="red">*energy conservative*</font>. The Force is defined as $F(x)=-dV/dx$, where $V(x)$ is the <font color="red">**potential energy**</font>. The equation of motion can thus be written as
-$$
-    m \ddot{x}  + \frac{dV}{dx} = 0
-$$
+$$ m \ddot{x}  + \frac{dV}{dx} = 0 $$
 Multiplying the equation by $\dot{x}$ and applying the chain rule in reverse, reveals there is a quantity that stays constant over time:
-$$
-    m \dot{x} \ddot{x}  + \frac{dV}{dx}\dot{x} = 0 \implies 
+$$ m \dot{x} \ddot{x}  + \frac{dV}{dx}\dot{x} = 0 \implies 
     \frac{d}{dt}
     \begin{bmatrix}
         \frac{1}{2} m\dot{x}^2 + V(x)\\
-    \end{bmatrix}
-$$
+\end{bmatrix} $$
+
 The system <font color="red">*total energy*</font> 
-$$
-    E = \frac{1}{2} m\dot{x}^2 + V(x)
-$$
+
+$$ E = \frac{1}{2} m\dot{x}^2 + V(x) $$
 is, for any given solution $x(t)$, constant w.r.t. time. Systems that are governed by such a conserved quantity are <font color="red">**conservative systems**</font>. In more general words, given a system $\mathbf{\dot{x}} = \mathbf{f}(\mathbf{x})$, the real-valued and continuous function $E(x)$ is a <font color="red">**conserved quantity**</font>, if it is constant on trajectories (i.e. $dE/dt = 0$). To prevent someone from finding a function like $E(x) \equiv 0$ for every system (every system would accordingly be conservative), a second requirement for $E(x)$ is to be *nonconstant* on every open set, which defines a region in space (opposed to a trajectory, which defined a position over time).     
 
 We can show, using above defintion, that <ins>a conservative system cannot have any attracting fixed points</ins>. To this end, shortly the term <font color="red">**basin of attraction**</font> is explained:
