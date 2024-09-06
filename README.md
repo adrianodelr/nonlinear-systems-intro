@@ -37,14 +37,12 @@ What do the concepts of fixed points and closed orbits further tell us ?
 - At the fixed point $(x,v)=0 $, the system is in a <font color="red">*static equilibrium*</font> . This means the mass will remain there forever because the forces are balanced.
 - The periodic orbits correspond to periodic motions, in this case the oscillation of the mass (up and down) 
 
-
 Some more of the differential geometry-specific language is explained by means of the <font color="red">**uncoupled**</font> linear system
 
 $$\begin{bmatrix}
     \dot{x}\\
     \dot{y}\\
-\end{bmatrix}
-= 
+\end{bmatrix}= 
 \begin{bmatrix}
     a & 0\\
     0 & -1\\
@@ -84,16 +82,19 @@ Otherwise from the crossing point as starting point two different trajectories (
 
 <font color="red">**Linearization**</font> is done as usual by a <font color="red">**Taylor approximation**</font>:
 We linearize the system
+
 $$ \dot{x} = f(x,y), \quad \dot{y} = g(x,y) $$ 
+
 around the fixed point $(x^*, y^*)$ 
 
 $$ f(x) =  f(x^*,y^*)  + \frac{\partial f}{\partial x}(x - x^*)  + \frac{\partial f}{\partial y}(y - y^*) + O((x - x^*)^2, (y - y^*)^2,(y - y^*)(x - x^*)) $$ 
+
 since it is a fixed point $f(x^\ast,y^\ast)=0$ and $(x - x^\ast)$ and $(y - y^\ast)$ are very small, we can disregard $f(x^*,y^*)$ and the quadratic terms $O$. Doing the same for $g(x,y)$ we finally arrive at
 
-\begin{align*}
+$$\begin{align*}
     & f(x,y) =  \frac{\partial f}{\partial x}(x - x^\ast)  + \frac{\partial f}{\partial y}(y - y^\ast) \\
     & g(x,y) =  \frac{\partial g}{\partial x}(x - x^\ast)  + \frac{\partial g}{\partial y}(y - y^\ast) \\
-\end{align*}
+\end{align*}$$
 
 If we linearize the system around a fixed point, neglecting the quadratic rest from the tayler expansion, the linearized system will predict the correct type of fixed point, as long as its a **saddle**, **node**, or **spiral**. Other cases like <font color="red">**centers**</font> may require some adapted techniques, which can be taken from the Strogatz book. 
 
@@ -117,9 +118,13 @@ The preservation of the stability property is substantiated by the <font color="
 #### (Energy) conservative systems
 
 Many important mechanical second order systems come from Newton's law $F=ma$. One example is a particle of mass $m$ moving in x-direction:
+
 $$ m \ddot{x} = F(x) $$
+
 where $F(x)$ is some nonlinear force. As $F$ is not dependent on $\dot{x}$, which means there is no damping or friction involved. The force is also not dependent on $t$ (i.e. time-independent). In this case it can be shown that the system is <font color="red">*energy conservative*</font>. The Force is defined as $F(x)=-dV/dx$, where $V(x)$ is the <font color="red">**potential energy**</font>. The equation of motion can thus be written as
+
 $$ m \ddot{x}  + \frac{dV}{dx} = 0 $$
+
 Multiplying the equation by $\dot{x}$ and applying the chain rule in reverse, reveals there is a quantity that stays constant over time:
 $$ m \dot{x} \ddot{x}  + \frac{dV}{dx}\dot{x} = 0 \implies 
     \frac{d}{dt}
@@ -130,6 +135,7 @@ $$ m \dot{x} \ddot{x}  + \frac{dV}{dx}\dot{x} = 0 \implies
 The system <font color="red">*total energy*</font> 
 
 $$ E = \frac{1}{2} m\dot{x}^2 + V(x) $$
+
 is, for any given solution $x(t)$, constant w.r.t. time. Systems that are governed by such a conserved quantity are <font color="red">**conservative systems**</font>. In more general words, given a system $\mathbf{\dot{x}} = \mathbf{f}(\mathbf{x})$, the real-valued and continuous function $E(x)$ is a <font color="red">**conserved quantity**</font>, if it is constant on trajectories (i.e. $dE/dt = 0$). To prevent someone from finding a function like $E(x) \equiv 0$ for every system (every system would accordingly be conservative), a second requirement for $E(x)$ is to be *nonconstant* on every open set, which defines a region in space (opposed to a trajectory, which defined a position over time).     
 
 We can show, using above defintion, that <ins>a conservative system cannot have any attracting fixed points</ins>. To this end, shortly the term <font color="red">**basin of attraction**</font> is explained:
@@ -142,15 +148,14 @@ With this definition at hand, we can say that, supposed there is an attracting f
 
 Instead of attracting fixed points, one generally finds saddles and centers in conservative systems. One such example is a particle (mass $m=1$) in a double-well potential $V(x) = - \frac{1}{2}x^2 + \frac{1}{4}x^4$. Follwing the procedure in the above example, the force is $-dV/dx=x-x^3$ and accordingly the equation of motion is 
 
-$$
-    \ddot{x}  = x - x^3
-$$
+$$\ddot{x}  = x - x^3 $$
+
 Which can be brought in first order form by doing a substitution 
 
-\begin{align*}
+$$\begin{align*}
 & \dot{x} = y\\
 & \dot{y} = x-x^3\\
-\end{align*}
+\end{align*}$$
 
 From this representation we can determine the fixed points, which are a **saddle** in the origin and two **centers** at ($\pm 1,0$). This can be deduced from the eigenvalues of the linearization at these points and the above classification scheme. This can also be recognized from the streamline plot of the phase plane in b) below.
 
@@ -161,9 +166,9 @@ energy_function_and_phase_plane_double_well(;initial_conditions = [0,0.01, -1,0.
 <img width=1200 height=400 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_14_0.png"/>
 
 In a) the <font color="red">**energy surface**</font> of the system is depicted, coming from the according energy function 
-$$
-    E = \frac{1}{2}y^2 - \frac{1}{2}x^2 + \frac{1}{4}x^4
-$$
+
+$$ E = \frac{1}{2}y^2 - \frac{1}{2}x^2 + \frac{1}{4}x^4 $$
+
 It can be computed as in the previous mass particel example. Interestingly, a trajectory in the phase space can be deduced from the projection of the <font color="red">**contours**</font> of the **energy surface** onto the phase plane, as shown in b). The contours represent levels of constant energy and as the system is energy conservative, a trajectory in the phase plane will always follow the projection of the according contour. 
 
 The indicated trajectory orbits show that almost all solutions are periodic. Excemption are the equilibrium solutions (white dots) and two special trajectories that seem to start and end at the origin (blue lines). As they start and end at the same fixed point, they are categorized as <font color="red">**homoclinic orbits**</font> (common in conservative systems). These are not periodic, as trajectories are forever trying to approach the origin.
@@ -178,21 +183,20 @@ Mechanical systems of the form $m \ddot{x} = F(x)$ have a <font color="red">**ti
 #### The Pendulum
 
 Departing from the equation of motion for a pendulum
-$$
-    \frac{d^2 \theta}{dt^2} + \frac{g}{L} sin(\theta) = 0 
-$$
+
+$$ \frac{d^2 \theta}{dt^2} + \frac{g}{L} sin(\theta) = 0  $$
+
 to simplify things we further assume $\frac{g}{L}=1$
-$$
-    \ddot{\theta} + sin(\theta) = 0 
-$$
+
+$$\ddot{\theta} + sin(\theta) = 0 $$
+
 The system is reversible and also we can find a conservatived quantity $E$ by multiplying with $\dot{\theta}$
-$$
-    \frac{d}{dt}
+
+$$\frac{d}{dt}
     \begin{bmatrix}
     \frac{1}{2}\dot{\theta}^2 - cos(\theta)
     \end{bmatrix} 
-    = \frac{d}{dt} E(\theta, \dot{\theta}) = 0 
-$$
+    = \frac{d}{dt} E(\theta, \dot{\theta}) = 0 $$
 
 
 ```julia
@@ -202,7 +206,7 @@ energy_function_and_phase_plane_single_pendulum(;initial_conditions = [0,0.01, -
 <img width=1200 height=400 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_18_0.png"/>
 
 The left hand side a) shows the energy surface and the projection of its contours onto the phase plane which is given by 
-$$
-    \dot{\theta} = v \text{,} \quad \dot{v} = - sin(\theta)
-$$
+
+$$ \dot{\theta} = v \text{,} \quad \dot{v} = - sin(\theta)$$
+
 on the phase portait b) one can recognize two saddle points and a center at the origin. The center corresponds to the lowest possible energy state ($E=-1$), it is a neutrally stable equilibrium. The small orbits around it correspond to small oscillations around the equilibrium point, these are called <font color="red">**liberations**</font>. 
