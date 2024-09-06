@@ -143,6 +143,71 @@ function linear_harmonic_oscillator_phase_portrait(;num_phasepoints=5, tf=10, h=
         scatter!(ax,[traj[is,1]],[traj[ie,1]], color="black")
     end
     f
+    return f
 end  
 
 # linear_harmonic_oscillator_phase_portrait(num_phasepoints=5, tf=10, h=0.01,xlims=(-2,2),ylims=(-1,1),xh=0.10, yh=0.10)
+
+"""
+    linear_system_solution(t,x0;a=1)
+
+Solution to the uncoupled linear first order system [ẋ,ẏ]^T = [a 0; 0 -1][x,y]^T
+
+# Arguments
+- `t::Float64`: time 
+- `x0::Vector{Float64}`: initial condition 
+- `a::Float64`: constant coefficient 
+"""
+function linear_system_solution(t,x0;a=1.0)
+    return [x0[1]*exp(a*t);x0[2]*exp(-t)]
+end 
+
+
+"""
+    uncoupled_linear_system_phase_portraits(;a = [-1.5, -1, -0.25, 0, 0.5], tr = 0:0.001:4, titles::Vector{String} = ["a)","b)","c)","d)","e)"])
+
+Plot solutions to uncoupled linear first order systems [ẋ,ẏ]^T = [a 0; 0 -1][x,y]^T. Trajectories are determined from random initial conditins. 
+Trajectories are mirrored at horizontal and vertical axis, such that trajectories 'start' in all quadrants. 
+
+# Arguments
+- `a::Vector{Float64}`: different coefficients for the linear system (number determines how many subplots) 
+- `tr:StepRangeLen`: timerange for the trajectories  
+- `titles::Vector{String}`: titles for the systems detemined by the coefficients a 
+"""
+function uncoupled_linear_system_phase_portraits(;a = [-1.5, -1, -0.25, 0, 0.5], tr = 0:0.001:4, titles::Vector{String} = ["a)","b)","c)","d)","e)"])
+    if length(a) != length(titles)
+        throw(error("number of titles not equal to number of systems (determined by lenght(a))"))
+    end 
+    f = Figure(size = (1500, 300))
+    cs = ColorScheme([colorant"yellow",colorant"fuchsia",colorant"deepskyblue", colorant"seagreen1"]);
+    origcolors = get(cs,0:0.01:1)
+    l = 0.8 # linewidth
+    num_phasepoints = 20
+    for j in eachindex(a)
+        ax = Axis(f[1, j], title=titles[j])
+        c = 1
+        for k in 1:num_phasepoints
+            x0 = rand(2)*0.5
+            xi = map(t-> linear_system_solution(t,[-x0[1],x0[2]],a=a[j]),tr) |> stack
+            lines!(ax, xi[1,:],xi[2,:],color=origcolors[c], linewidth=l)
+            c+=1
+            xi = map(t-> linear_system_solution(t,[x0[1],-x0[2]],a=a[j]),tr) |> stack
+            lines!(ax, xi[1,:],xi[2,:],color=origcolors[c], linewidth=l)
+            c+=1
+            xi = map(t-> linear_system_solution(t,[-x0[1],-x0[2]],a=a[j]),tr) |> stack
+            lines!(ax, xi[1,:],xi[2,:],color=origcolors[c], linewidth=l)
+            c+=1
+            xi = map(t-> linear_system_solution(t,[x0[1],x0[2]],a=a[j]),tr) |> stack
+            lines!(ax, xi[1,:],xi[2,:],color=origcolors[c], linewidth=l)
+            c+=1
+            scatter!(ax,[x0[1]],[x0[2]], markersize=3, color = "black")
+            scatter!(ax,[-x0[1]],[x0[2]], markersize=3, color = "black")
+            scatter!(ax,[x0[1]],[-x0[2]], markersize=3, color = "black")
+            scatter!(ax,[-x0[1]],[-x0[2]], markersize=3, color = "black")
+        end
+    end
+    f
+    return f
+end  
+
+# uncoupled_linear_system_phase_portraits(a = [-1.5, -1, -0.25, 0, 0.5], tr = 0:0.001:4, titles::Vector{String} = ["a)","b)","c)","d)","e)"]) 
