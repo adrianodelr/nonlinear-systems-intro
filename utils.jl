@@ -281,4 +281,184 @@ function nonlinear_system_direction_field(;initial_conditions = [-0.5,1, -0.9,1,
     return f
 end  
 
-nonlinear_system_direction_field()
+# nonlinear_system_direction_field() 
+
+"""
+    double_well_potential(x)
+
+Double well potential ODE
+
+# Arguments
+- `x::Vector{Float64}`: state vector 
+"""
+double_well_potential(x) = Point2f([x[2],x[1]-x[1]^3])
+
+"""
+    double_well_potential_energy(x,y)
+
+Double well potential energy function
+
+# Arguments
+- `x::Vector{Float64}`: state vector 
+"""
+function double_well_potential_energy(x)
+    x,y = x[1],x[2] 
+    return  1/2*y^2 - 1/2*x^2 + 1/4*x^4
+end  
+
+
+"""
+    energy_function_and_phase_plane_double_well(;initial_conditions = [0,0.01, -1,0.0, 1,0], h = 0.01, tf = 30, xlims=(-1.5,1.5),ylims=(-1.5,1.5),xh=0.05, yh=0.05)
+
+Plot the energy function of a double well potential system together with its phase portrait and fixed points/ trajectories  
+# Arguments
+- `initial_conditions::Vector{Float}`: Vector of initial conditions of the form [x01,y01, x02,y02, ...]
+- `tf::Float64`: Final time of the trajectories 
+- `h::Float64`: Integration step size 
+- `xlims::Tuple{Float64,Float64}`: Lower and upper x-limit 
+- `ylims::Tuple{Float64,Float64}`: Lower and upper y-limit 
+- `xh::Float64`: Grid step size in x-direction 
+- `yh::Float64`: Grid step size in y-direction
+"""
+function energy_function_and_phase_plane_double_well(;initial_conditions = [0,0.01, -1,0.0, 1,0], h = 0.01, tf = 30, xlims=(-1.5,1.5),ylims=(-1.5,1.5),xh=0.05, yh=0.05)
+    # bring energy function in format needed by makie and build gradient function 
+    Ewrapper(x,y) = [double_well_potential_energy([x,y])] 
+    gradE(xx, yy) = Point2f(ForwardDiff.jacobian(x -> Ewrapper(x[1], x[2]), [xx, yy])...) # gradient of energy funvtion 
+    # discrete grid of energy values (in vector form)    
+    x = xlims[1]:xh:xlims[2]
+    y = ylims[1]:yh:ylims[2]
+    z = [double_well_potential_energy([i, j]) for i in x, j in y];
+
+    # solving numerically for trajectories    
+    num_traj = Int(round(length(initial_conditions)/2))
+    traj = solve_trajectories_2D_sys(num_traj, initial_conditions, double_well_potential, h, tf)
+    
+    # plotting
+    zmin, zmax = minimum(z), maximum(z)
+    cmap = :Spectral
+    fig = Figure(fontsize = 24, size=(1200,500))
+    ga = fig[1:2, 1]= GridLayout() 
+    gb = fig[1:2, 2]= GridLayout() 
+    # Energy function plot 
+    ax1 = Axis3(ga[1,1],  perspectiveness = 0.3, elevation = 0.2, azimuth = 1.2,
+    xlabel = L"$x$ (m)", ylabel = L"y (m)",zlabel = L"$E(x,y)$ (Joule)", 
+    title=L"\textbf{a) Energy surface}", width=500, height=400)
+    # 3d surface 
+    surface!(ax1, x, y, z; colormap = cmap,colorrange = (zmin, zmax))
+    contour3d!(ax1, x, y, z .+ 0.005; levels = 10, linewidth = 1, color = :white)
+    wireframe!(ax1, x, y, z; color = (:black, 0.05))
+    # projection on the floor
+    heatmap!(ax1, x, y, z, colormap = cmap, alpha=1, transformation = (:xy, -0.3))
+    contour!(ax1, x, y, z; levels = 10, linewidth = 1, color = :white, transformation = (:xy, -0.3))
+    streamplot!(ax1, double_well_potential, x, y; color=(p)->RGBf(0/255, 0/255, 0/255), gridsize = (20, 20),arrow_size = 1, linewidth = 0.5, transformation = (:xy, -0.15))
+
+    # phase portrait 
+    ax2 = Axis(gb[1, 1], xlabel = L"$x$ (y)", ylabel = L"$y$ (m)", title=L"\textbf{b) Phase plane}", titlegap = 30, limits=(xlims,ylims))
+    heatmap!(ax2, x, y, z, colormap = cmap, alpha=1.0)
+    streamplot!(ax2, double_well_potential, x, y; color=(p)->RGBf(0/255, 0/255, 0/255), gridsize = (30, 30),arrow_size = 8, linewidth = 1)
+    # fixed points 
+    scatter!(ax2, [0.0], [0.0], color="white")
+    scatter!(ax2, [-π,π], [0.0,0.0], color="blue")
+    # trajectories 
+    for j in 1:num_traj
+        is = 2*j-1
+        ie = 2*j
+        lines!(ax2, traj[is,:],traj[ie,:], color=:blue, linewidth=2)
+        scatter!(ax2,[traj[is,1]],[traj[ie,1]], color=:white)
+    end
+
+    colgap!(ga, 0)
+    rowgap!(ga, 0)
+    resize_to_layout!(fig)
+    fig
+    return fig 
+end  
+
+# energy_function_and_phase_plane_double_well()
+
+"""
+    single_pendulum(x)
+
+single_pendulum ODE (assuming mass, link length etc = 1)
+
+# Arguments
+- `x::Vector{Float64}`: state vector 
+"""
+single_pendulum(x) = Point2f([x[2],-sin(x[1])])
+
+"""
+    single_pendulum_energy(x,y)
+
+Single pendulum energy function (assuming mass, link length etc = 1)
+
+# Arguments
+- `x::Vector{Float64}`: state vector 
+"""
+function single_pendulum_energy(x)
+    θ,v = x[1],x[2] 
+    return  1/2*v^2 -cos(θ)
+end  
+
+
+
+"""
+    energy_function_and_phase_plane_single_pendulum(;initial_conditions = [0,0.01, -1,0.0, 1,0], h = 0.01, tf = 30, xlims=(-1.5,1.5),ylims=(-1.5,1.5),xh=0.05, yh=0.05)
+
+Plot the energy function of a double well potential system together with its phase portrait and fixed points/ trajectories  
+# Arguments
+- `initial_conditions::Vector{Float}`: Vector of initial conditions of the form [x01,y01, x02,y02, ...]
+- `tf::Float64`: Final time of the trajectories 
+- `h::Float64`: Integration step size 
+- `xlims::Tuple{Float64,Float64}`: Lower and upper x-limit 
+- `ylims::Tuple{Float64,Float64}`: Lower and upper y-limit 
+- `xh::Float64`: Grid step size in x-direction 
+- `yh::Float64`: Grid step size in y-direction
+"""
+function energy_function_and_phase_plane_single_pendulum(;initial_conditions = [0,0.01, -1,0.0, 1,0], h = 0.01, tf = 30, xlims=(-2π,2π),ylims=(-3,3),xh=0.1, yh=0.1)
+    # bring energy function in format needed by makie and build gradient function 
+    Ewrapper(x,y) = [single_pendulum_energy([x,y])] 
+    gradE(xx, yy) = Point2f(ForwardDiff.jacobian(x -> Ewrapper(x[1], x[2]), [xx, yy])...) # gradient of energy funvtion 
+    # discrete grid of energy values (in vector form)    
+    x = xlims[1]:xh:xlims[2]
+    y = ylims[1]:yh:ylims[2]
+    z = [single_pendulum_energy([i, j]) for i in x, j in y];
+
+    # solving numerically for trajectories    
+    num_traj = Int(round(length(initial_conditions)/2))
+    traj = solve_trajectories_2D_sys(num_traj, initial_conditions, single_pendulum, h, tf)
+    
+    # plotting
+    zmin, zmax = minimum(z), maximum(z)
+    cmap = :Spectral
+    fig = Figure(fontsize = 24, size=(1200,500))
+    ga = fig[1:2, 1]= GridLayout() 
+    gb = fig[1:2, 2]= GridLayout() 
+    # Energy function plot 
+    ax1 = Axis3(ga[1,1],  perspectiveness = 0.3, elevation = 0.2, azimuth = 1.2,
+    xlabel = L"$x$ (m)", ylabel = L"y (m)",zlabel = L"$E(x,y)$ (Joule)", 
+    title=L"\textbf{a) Energy surface}", width=500, height=400)
+    # 3d surface 
+    surface!(ax1, x, y, z; colormap = cmap,colorrange = (zmin, zmax))
+    contour3d!(ax1, x, y, z .+ 0.005; levels = 10, linewidth = 1, color = :white)
+    wireframe!(ax1, x, y, z; color = (:black, 0.05))
+    # projection on the floor
+    heatmap!(ax1, x, y, z, colormap = cmap, alpha=1, transformation = (:xy, -1.4))
+    contour!(ax1, x, y, z; levels = 10, linewidth = 1, color = :white, transformation = (:xy, -1.4))
+    streamplot!(ax1, single_pendulum, x, y; color=(p)->RGBf(0/255, 0/255, 0/255), gridsize = (20, 20),arrow_size = 1, linewidth = 0.5, transformation = (:xy, -0.7))
+
+    # phase portrait 
+    ax2 = Axis(gb[1, 1], xlabel = L"$x$ (y)", ylabel = L"$y$ (m)", title=L"\textbf{b) Phase plane}", titlegap = 30, limits=(xlims,ylims))
+    heatmap!(ax2, x, y, z, colormap = cmap, alpha=1.0)
+    streamplot!(ax2, single_pendulum, x, y; color=(p)->RGBf(0/255, 0/255, 0/255), gridsize = (30, 30),arrow_size = 8, linewidth = 1)
+    # fixed points 
+    scatter!(ax2, [0.0], [0.0], color="white")
+    scatter!(ax2, [-π,π], [0.0,0.0], color="blue")
+
+    colgap!(ga, 0)
+    rowgap!(ga, 0)
+    resize_to_layout!(fig)
+    fig
+    return fig 
+end  
+
+energy_function_and_phase_plane_single_pendulum()
