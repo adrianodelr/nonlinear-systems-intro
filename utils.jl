@@ -461,4 +461,4 @@ function energy_function_and_phase_plane_single_pendulum(;initial_conditions = [
     return fig 
 end  
 
-energy_function_and_phase_plane_single_pendulum()
+# energy_function_and_phase_plane_single_pendulum()
