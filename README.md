@@ -70,7 +70,7 @@ From these equations we can see, that $y(t)$ always decays exponentially, while 
 uncoupled_linear_system_phase_portraits(;a = [-1.5, -1, -0.25, 0, 0.5], tr = 0:0.001:4, titles = ["a)","b)","c)","d)","e)"])
 ```
 
-<img width=1500 height=300 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_7_0.png"/>
+<img width=1500 height=200 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_7_0.png"/>
 
 A direction field has arrows instead of lines. Visibly the trajectories follow local slopes depicted by the lines. 
 
@@ -173,7 +173,7 @@ From this representation we can determine the fixed points, which are a **saddle
 ```julia
 energy_function_and_phase_plane_double_well(;initial_conditions = [0,0.01, -1,0.0, 1,0], h = 0.01, tf = 30, xlims=(-1.5,1.5),ylims=(-1.5,1.5),xh=0.05, yh=0.05)
 ```
-<img width=1200 height=500 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_14_0.png"/>
+<img width=1200 height=400 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_14_0.png"/>
 
 In a) the <font color="red">**energy surface**</font> of the system is depicted, coming from the according energy function 
 \begin{equation*}
@@ -214,7 +214,7 @@ The system is reversible and also we can find a conservatived quantity $E$ by mu
 energy_function_and_phase_plane_single_pendulum(;initial_conditions = [0,0.01, -1,0.0, 1,0], h = 0.01, tf = 30, xlims=(-2π,2π),ylims=(-3,3),xh=0.1, yh=0.1)
 ```
 
-<img width=1200 height=500 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_18_0.png"/>
+<img width=1200 height=400 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_18_0.png"/>
 
 The left hand side a) shows the energy surface and the projection of its contours onto the phase plane which is given by 
 \begin{equation*}
