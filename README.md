@@ -5,10 +5,11 @@ include("utils.jl");
 #### Examples and definitions in the context of linear systems (but useful for nonlinear ones)
 Strogatz explains the concept of the <font color="red">**phase space**</font> by starting from an easy two dimensional linear systems. As e.g. the *simple harmonic oscillator* characterised by 
 
-$$\begin{align*}
+$$\begin{align}
     & \dot{x} = v \\
     & \dot{v} = - \frac{k}{m} x 
-\end{align*}$$
+\end{align}$$
+
 A vector $(\dot{x},\dot{v})= (v,-\omega^2 x)$  with  $\omega^2 = \frac{k}{m}$ is assigned to each point $(x,v)$. This can be represented as a <font color="red">**vector field**</font>. 
 
 ```julia
@@ -56,12 +57,11 @@ $$\begin{bmatrix}
 \end{bmatrix}$$ 
 
 Peforming the matrix multiplication and solving the decoupled equations by direct integration leads to:
-$$
-\begin{align*}
+$$\begin{align*}
     & x(t) = x_0 e^{at} \\ 
     & y(t) = y_0 e^{-t} \\ 
-\end{align*}
-$$
+\end{align*}$$
+
 From these equations we can see, that $y(t)$ always decays exponentially, while the decay of $x(t)$ depends on the factor $a$. Below the the phase plots for differents values of $a$ are depicted. 
 
 
