@@ -110,7 +110,7 @@ When not interested in the geometry of trajectories but only in stability proper
 - *Higher-order* and *non-isolated fixed points*: At least one eigenvalues $Re(\lambda)=0$ 
 
 If $Re(\lambda) \neq 0$ for both eigenvalues, the fixed point is also called <font color="red">**hyperbolic**</font>. At this kind of fixed point, the stability is unaffected by small nonlinear terms. In other words, the stability is accurately predicted by the linearization. This can be generalized to n-th order systems:  
-- If all the eigenvalues of the linarized system (at the fixed point) lie off the imaginary axis (i.e. $Re(\lambda) \neq 0$ for $i = 1,\dots,n$), the fixed point is **hyperbolic**
+- If all the eigenvalues of the linarized system (at the fixed point) lie off the imaginary axis (i.e. $Re(\lambda_i) \neq 0$ for $i = 1,\dots,n$), the fixed point is **hyperbolic**
 
 The preservation of the stability property is substantiated by the <font color="red">**Hartman-Grobman theorem**</font>, which reveals that a local phase portrait, near a hyperbolic fixed point is <font color="red">**topologically equivalent**</font> to the phase portrait of the linearization. Topologically equivalent means there is a <font color="red">**homeomorphism**</font> (continuous deformation with continuous inverse), mapping the local phase portrait onto the phase portrait of the linearization. This implies that proportions between trajectories and their direction (sense of time) is preseved.
 
