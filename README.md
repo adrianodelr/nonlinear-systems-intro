@@ -16,7 +16,8 @@ A vector $(\dot{x},\dot{v})= (v,-\omega^2 x)$  with  $\omega^2 = \frac{k}{m}$ is
 linear_harmonic_oscillator_vector_field(;xlims=(-1,1),ylims=(-1,1),xh=0.15, yh=0.15)
 ```
 
-<img width=700 height=400 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_2_0.png"/>
+<!-- <img width=700 height=400 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_2_0.png"/> -->
+![vector field of linear harmonic oscillator](nonlinear-systems-intro_files/nonlinear-systems-intro_2_0.png)
 
 It can be imagined as a fluid field, with local velocity $(\dot{x},\dot{v}) = (v,-\omega^2 x)$. A trajectory of an imaginary particle we place in the field starts at the point where we set it in the field, a point $(x_0, v_0)$ called <font color="red">**phase point**</font> (generally all points in the phase space).
 
