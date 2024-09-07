@@ -29,7 +29,8 @@ A phase point starting anywhere else, would circulate aroung the origin and pass
 ```julia
 linear_harmonic_oscillator_phase_portrait(;num_traj=5, tf=10, h=0.01,xlims=(-2,2),ylims=(-1,1),xh=0.05, yh=0.05)
 ```
-<img width=700 height=400 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_4_0.png"/>
+<!-- <img width=700 height=400 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_4_0.png"/> -->
+![phase portrait of linear harmonic oscillator](nonlinear-systems-intro_files/nonlinear-systems-intro_4_0.png)
 
 Here we can see a picture of some random trajectories in the phase space, all forming closed orbits. This kind of plot is calles <font color="red">**phase portrait**</font>.
 
@@ -67,7 +68,8 @@ From these equations we can see, that $y(t)$ always decays exponentially, while 
 uncoupled_linear_system_phase_portraits(;a = [-1.5, -1, -0.25, 0, 0.5], tr = 0:0.001:4, titles = ["a)","b)","c)","d)","e)"])
 ```
 
-<img width=1500 height=200 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_7_0.png"/>
+<!-- <img width=1500 height=200 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_7_0.png"/> -->
+![phase portraits of uncoupled linear systems](nonlinear-systems-intro_files/nonlinear-systems-intro_7_0.png)
 
 A direction field has arrows instead of lines. Visibly the trajectories follow local slopes depicted by the lines. 
 
@@ -165,7 +167,9 @@ From this representation we can determine the fixed points, which are a **saddle
 ```julia
 energy_function_and_phase_plane_double_well(;initial_conditions = [0,0.01, -1,0.0, 1,0], h = 0.01, tf = 30, xlims=(-1.5,1.5),ylims=(-1.5,1.5),xh=0.05, yh=0.05)
 ```
-<img width=1200 height=400 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_14_0.png"/>
+<!-- <img width=1200 height=400 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_14_0.png"/> -->
+![energy function and phase plane of double well potential](nonlinear-systems-intro_files/nonlinear-systems-intro_14_0.png)
+
 
 In a) the <font color="red">**energy surface**</font> of the system is depicted, coming from the according energy function 
 
@@ -205,7 +209,8 @@ $$\frac{d}{dt}
 energy_function_and_phase_plane_single_pendulum(;initial_conditions = [0,0.01, -1,0.0, 1,0], h = 0.01, tf = 30, xlims=(-2π,2π),ylims=(-3,3),xh=0.1, yh=0.1)
 ```
 
-<img width=1200 height=400 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_18_0.png"/>
+<!-- <img width=1200 height=400 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_18_0.png"/> -->
+![energy function and phase plane of single pendulum](nonlinear-systems-intro_files/nonlinear-systems-intro_18_0.png)
 
 The left hand side a) shows the energy surface and the projection of its contours onto the phase plane which is given by 
 
