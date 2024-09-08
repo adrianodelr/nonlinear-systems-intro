@@ -258,7 +258,7 @@ energy_function_and_phase_plane_single_pendulum(;initial_conditions = [0,0.01, -
 ```
 
 <!-- <img width=1200 height=400 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_18_0.png"/> -->
-![energy function and phase plane of single pendulum](nonlinear-systems-intro_files/nonlinear-systems-intro_18_0.png)****
+![energy function and phase plane of single pendulum](nonlinear-systems-intro_files/nonlinear-systems-intro_18_0.png)
 
 The left hand side a) shows the energy surface and the projection of its contours onto the phase plane which is given by 
 
