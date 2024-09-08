@@ -126,7 +126,7 @@ around the fixed point $(x^\ast,y^\ast)$
 
 $$ f(x) =  f(x^\ast,y^\ast)  + \frac{\partial f}{\partial x}(x - x^\ast)  + \frac{\partial f}{\partial y}(y - y^\ast) + O((x - x^\ast)^2, (y - y^\ast)^2,(y - y^\ast)(x - x^\ast)) $$ 
 
-since it is a fixed point $f(x^\ast,y^\ast)=0$ and $(x - x^\ast)$ and $(y - y^\ast)$ are very small, we can disregard $f(x^\ast,y^\ast)$ and the quadratic terms $O$. Doing the same for $g(x,y)$ we finally arrive at
+since it is a fixed point $f(x^\ast,y^\ast)=0$ and $ (x - x^\ast)$ and $(y - y^\ast)$ are very small, we can disregard $f(x^\ast,y^\ast)$ and the quadratic terms $O$. Doing the same for $g(x,y)$ we finally arrive at
 
 $$\begin{align*}
     & f(x,y) =  \frac{\partial f}{\partial x}(x - x^\ast)  + \frac{\partial f}{\partial y}(y - y^\ast) \\
