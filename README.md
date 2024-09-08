@@ -8,7 +8,7 @@ The sections I focused on are ``Part II - 5 Linear systems`` and ``Part II - 6 P
 If you're just starting out with modeling or analyzing nonlinear systems and want a more thorough understanding, I hope you find this extract and the code helpful. 
 I've also thoroughly documented all the [plotting functions](utils.jl) so that you can experiment with the function parameters. 
 
-The rest of this readme file, outlines the content of the Jupyter Notebook.  
+The rest of this README file outlines the content of the Jupyter Notebook.
 
 ## Preview - Jupyter Notebook 
 
