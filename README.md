@@ -1,8 +1,22 @@
+## Introduction 
+
+This repository contains a Jupyter Notebook that is an extract from [Nonlinear Dynamics and Chaos](https://www.biodyn.ro/course/literatura/Nonlinear_Dynamics_and_Chaos_2018_Steven_H._Strogatz.pdf) — a brilliant book that provides an intuitive introduction to the analysis of nonlinear differential equations from a geometric perspective.
+
+While preparing for my master's thesis, I used this book to become familiar with the terminology used in the context of data-driven dynamical systems. To gain a deeper understanding, I created this notebook and implemented code in Julia to reproduce some of the graphics from the book, and also added own visualizations. 
+The sections I focused on are Part II - 5 ``Linear systems'' and Part II - 6 ``Phase plane''.  
+
+If you're just starting out with modeling or analyzing nonlinear systems and want a more thorough understanding, I hope you find this extract and the code helpful. 
+I've also thoroughly documented all the [plotting functions](utils.jl) so that you can experiment with the function parameters. 
+
+The rest of this readme file, outlines the content of the Jupyter Notebook.  
+
+## Preview - Jupyter Notebook 
+
 ```julia
 include("utils.jl");
 ```
 
-#### Examples and definitions in the context of linear systems (but useful for nonlinear ones)
+### Examples and definitions in the context of linear systems (but useful for nonlinear ones)
 Strogatz explains the concept of the <font color="red">**phase space**</font> by starting from an easy two dimensional linear systems. As e.g. the *simple harmonic oscillator* characterised by 
 
 $$\begin{align}
@@ -84,7 +98,7 @@ The initial phase point for each trajectory is depicted by a little dot. This ma
 
 - e) When $a>0$, $\mathbf{x^\star} = \mathbf{0}$ becomes unstable, as most trajectories grow exponentially in x-direction. Almost all trajectories diverge from $\mathbf{x^\star}$ and go to infinity. An exemption is a trajectory that starts on the y-axis. It will converge towards the origin. When going forward in time, trajectories are asymptotic to the x-axis. $\mathbf{x^\star} = \mathbf{0}$ is a <font color="red">**saddle point**</font>. The y-axis is the <font color="red">**stable manifold**</font> of the saddle point $\mathbf{x^\star}$. Per definition an stable manifold is the set if intial conditons, s.t. $\mathbf{x}(t) \rightarrow \mathbf{x^\star}$ when $t \rightarrow \infty$. In backward time, the trajectories become asymptotic to the x-axis. Here the x-axis becomes per definition the <font color="red">**unstable manifold**</font> as trajectories with $x_0$ on the x-axis converge towards the origin ($\mathbf{x}(t) \rightarrow \mathbf{x^\star}$ when $t \rightarrow -\infty$)   
 
-#### Types of stability 
+### Types of stability 
 This section will introduce some of the language that is used in the context of stability of different type fix points. It will be useful for analyzing fixed points of *nonlinear systems* (for now we are still looking at linear systems).
 
 Going back to the previous plots, we can identify $\mathbf{x^\star} = \mathbf{0}$ as an <font color="red">**attracting**</font> fixed point in the phase plots a)-c), as all trajectories starting close to $\mathbf{x^\star}$ converge to it when $t \rightarrow \infty$ (i.e. $\mathbf{x}(t) \rightarrow \mathbf{x^\star}$ as $t \rightarrow \infty$).
@@ -96,7 +110,7 @@ Plot d) is an example of a lyapunov stable fixed point, which is *not attracting
 
 If a point is Lyapunov stable **and** attracting, it is called <font color="red">**stable**</font> or <font color="red">**asymptotically stable**</font>. If its neither attracting nor lyapunov stable, a fixed point is <font color="red">**unstable**</font>, as the origin in plot d).
 
-#### The phase plane and two dimensional *nonlinear* systems
+### The phase plane and two dimensional *nonlinear* systems
 With all these definitions at hand, we can now start the analysis of nonlinear systems, including their fixed points and topological tools for analysing phase portraits. Analytical solutions are generally not feasible but the qualitative analysis of the phase plane can offer valuable insights. Latter can be depticed using a numerical integrator as e.g. RK4 (see code for phase plot of the oscillator). Instead of using arrows, it can be clearer to use a plot of the <font color="red">**direction field**</font>.
 
 ```julia
@@ -115,7 +129,7 @@ Otherwise from the crossing point as starting point two different trajectories (
 - if additionally there are fixed points within $C$, $\mathbf{x}(t)$ might approach the fixed points.
 - if there is no fixed points, $\mathbf{x}(t)$ must approach a closed orbit. This is the <font color="red">**Pointcaré-Bendixson theorem**</font> for vector fields on the plane.  
 
-##### Linearization around a fixed point
+#### Linearization around a fixed point
 
 <font color="red">**Linearization**</font> is done as usual by a <font color="red">**Taylor approximation**</font>:
 We linearize the system
@@ -152,7 +166,7 @@ If $Re(\lambda) \neq 0$ for both eigenvalues, the fixed point is also called <fo
 The preservation of the stability property is substantiated by the <font color="red">**Hartman-Grobman theorem**</font>, which reveals that a local phase portrait, near a hyperbolic fixed point is <font color="red">**topologically equivalent**</font> to the phase portrait of the linearization. Topologically equivalent means there is a <font color="red">**homeomorphism**</font> (continuous deformation with continuous inverse), mapping the local phase portrait onto the phase portrait of the linearization. This implies that proportions between trajectories and their direction (sense of time) is preseved.
 
 
-#### (Energy) conservative systems
+### (Energy) conservative systems
 
 Many important mechanical second order systems come from Newton's law $F=ma$. One example is a particle of mass $m$ moving in x-direction:
 
@@ -216,11 +230,11 @@ The indicated trajectory orbits show that almost all solutions are periodic. Exc
 Tip from Strogatz: 
 - It can be helpful to think of the flow as happening on the energy surface rather than in the phase plane, but they would run *around* the surface as they must stay at a constant height E(x,y) - corresponding to the constant energy level. 
 
-#### (Time) reversible systems
+### (Time) reversible systems
 
 Mechanical systems of the form $m \ddot{x} = F(x)$ have a <font color="red">**time-reversal symmetry**</font>, which means when replacing $t \rightarrow -t$ the second derivative $\ddot{x}$ remains unchanged. Only the velocity $\dot{x}$ changes sign. In the phase plane this corresponds to a reflection of the trajectory on the x-axis and a reversal of the flow direction.   
 
-#### The Pendulum
+### The Pendulum
 
 Departing from the equation of motion for a pendulum
 
