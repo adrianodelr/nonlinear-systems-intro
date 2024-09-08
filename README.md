@@ -71,6 +71,40 @@ uncoupled_linear_system_phase_portraits(;a = [-1.5, -1, -0.25, 0, 0.5], tr = 0:0
 <!-- <img width=1500 height=200 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_7_0.png"/> -->
 ![phase portraits of uncoupled linear systems](nonlinear-systems-intro_files/nonlinear-systems-intro_7_0.png)
 
+The initial phase point for each trajectory is depicted by a little dot. This makes it possible to see where all trajectories end.
+
+- a) $a<-1$. The fixed point $\mathbf{x^\star} = \mathbf{0}$ is a <font color="red">**stable node**</font>
+. Trajectories approach the stable node tangent to the *slower*  y-direction. 
+
+- b) $a=-1$. $\mathbf{x^\star}$ is called symmetrical node or **star**.
+
+- c) $-1<a<0$. The fixed point $\mathbf{x^\star}$ the same as in a) but here the *slower* direction is the x-direction. 
+  
+- d) $a=0$ makes a dramatic change. With this, the first equation becomes $x(t)=x_0$ so each trajectory evolves parallel to the y-axis. There is a **line of fixed points** along the x-axis.
+
+- e) When $a>0$, $\mathbf{x^\star} = \mathbf{0}$ becomes unstable, as most trajectories grow exponentially in x-direction. Almost all trajectories diverge from $\mathbf{x^\star}$ and go to infinity. An exemption is a trajectory that starts on the y-axis. It will converge towards the origin. When going forward in time, trajectories are asymptotic to the x-axis. $\mathbf{x^\star} = \mathbf{0}$ is a <font color="red">**saddle point**</font>. The y-axis is the <font color="red">**stable manifold**</font> of the saddle point $\mathbf{x^\star}$. Per definition an stable manifold is the set if intial conditons, s.t. $\mathbf{x}(t) \rightarrow \mathbf{x^\star}$ when $t \rightarrow \infty$. In backward time, the trajectories become asymptotic to the x-axis. Here the x-axis becomes per definition the <font color="red">**unstable manifold**</font> as trajectories with $x_0$ on the x-axis converge towards the origin ($\mathbf{x}(t) \rightarrow \mathbf{x^\star}$ when $t \rightarrow -\infty$)   
+
+#### Types of stability 
+This section will introduce some of the language that is used in the context of stability of different type fix points. It will be useful for analyzing fixed points of *nonlinear systems* (for now we are still looking at linear systems).
+
+Going back to the previous plots, we can identify $\mathbf{x^\star} = \mathbf{0}$ as an <font color="red">**attracting**</font> fixed point in the phase plots a)-c), as all trajectories starting close to $\mathbf{x^\star}$ converge to it when $t \rightarrow \infty$ (i.e. $\mathbf{x}(t) \rightarrow \mathbf{x^\star}$ as $t \rightarrow \infty$).
+In fact, all trajectories converge to $\mathbf{x^\star}$, regardless from which point they start in the phase plane, hence it can be also called <font color="red">**global attractor**</font>. 
+
+A <font color="red">**lyapunov stable**</font> fixed point ensures that trajectories starting close to it, will remain close to it, regardless of $t \rightarrow \infty$ or $t \rightarrow -\infty$, for *all times*. For a)-d) the origin is Lyapunov stable.
+
+Plot d) is an example of a lyapunov stable fixed point, which is *not attracting*. This is also termed <font color="red">**neutrally stable**</font>. Close trajectories ar neither neither attracted nor repelled. Another neutrally stable fixed point is the origin in the phase plot of the *harmonic oscillator* (second plot from above). <ins>Often this behaviour emerges in mechanical systems in the absence of friction</ins>.  The vice versa case is also possible (attracting but no lyapunov stability).
+
+If a point is Lyapunov stable **and** attracting, it is called <font color="red">**stable**</font> or <font color="red">**asymptotically stable**</font>. If its neither attracting nor lyapunov stable, a fixed point is <font color="red">**unstable**</font>, as the origin in plot d).
+
+#### The phase plane and two dimensional *nonlinear* systems
+With all these definitions at hand, we can now start the analysis of nonlinear systems, including their fixed points and topological tools for analysing phase portraits. Analytical solutions are generally not feasible but the qualitative analysis of the phase plane can offer valuable insights. Latter can be depticed using a numerical integrator as e.g. RK4 (see code for phase plot of the oscillator). Instead of using arrows, it can be clearer to use a plot of the <font color="red">**direction field**</font>.
+
+```julia
+nonlinear_system_direction_field(initial_conditions = [-0.5,1, -0.9,1,-2,-1, -2,-0.5 ,-1,0 ,-1.3,0 ,-0.7,0 ,-0.63215,1, -1.5,-1], h = 0.01, tf = 6, xlims=(-3,3),ylims=(-1.5,1.5),xh=0.15, yh=0.15)
+```
+
+![direction field of a nonlinear system](nonlinear-systems-intro_files/nonlinear-systems-intro_11_0.png)
+
 A direction field has arrows instead of lines. Visibly the trajectories follow local slopes depicted by the lines. 
 
 The **existence and uniqueness theorem** tells us, that the existence and uniqueness of a solution is guaranteed, as long as $\mathbf{f}(\mathbf{x})$ is continuously differentiable (no mathematical definition of the theorem here). This theorem has one important implication:
@@ -210,7 +244,7 @@ energy_function_and_phase_plane_single_pendulum(;initial_conditions = [0,0.01, -
 ```
 
 <!-- <img width=1200 height=400 style='object-fit: contain; height: auto;' src="nonlinear-systems-intro_files/nonlinear-systems-intro_18_0.png"/> -->
-![energy function and phase plane of single pendulum](nonlinear-systems-intro_files/nonlinear-systems-intro_18_0.png)
+![energy function and phase plane of single pendulum](nonlinear-systems-intro_files/nonlinear-systems-intro_18_0.png)****
 
 The left hand side a) shows the energy surface and the projection of its contours onto the phase plane which is given by 
 
