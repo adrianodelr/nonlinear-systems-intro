@@ -122,15 +122,15 @@ We linearize the system
 
 $$ \dot{x} = f(x,y), \quad \dot{y} = g(x,y) $$ 
 
-around the fixed point $(x^\ast,y^\ast)$ 
+around the fixed point $(x^\star,y^\star)$ 
 
-$$ f(x) =  f(x^\ast,y^\ast)  + \frac{\partial f}{\partial x}(x - x^\ast)  + \frac{\partial f}{\partial y}(y - y^\ast) + O((x - x^\ast)^2, (y - y^\ast)^2,(y - y^\ast)(x - x^\ast)) $$ 
+$$ f(x) =  f(x^\star,y^\star)  + \frac{\partial f}{\partial x}(x - x^\star)  + \frac{\partial f}{\partial y}(y - y^\star) + O((x - x^\star)^2, (y - y^\star)^2,(y - y^\star)(x - x^\star)) $$ 
 
-since it is a fixed point $f(x^\ast,y^\ast)=0$ and $ (x - x^\ast)$ and $(y - y^\ast)$ are very small, we can disregard $f(x^\ast,y^\ast)$ and the quadratic terms $O$. Doing the same for $g(x,y)$ we finally arrive at
+since it is a fixed point $f(x^\star,y^\star)=0$ and $(x - x^\star)$ and $(y - y^\star)$ are very small, we can disregard $f(x^\star,y^\star)$ and the quadratic terms $O$. Doing the same for $g(x,y)$ we finally arrive at
 
 $$\begin{align*}
-    & f(x,y) =  \frac{\partial f}{\partial x}(x - x^\ast)  + \frac{\partial f}{\partial y}(y - y^\ast) \\
-    & g(x,y) =  \frac{\partial g}{\partial x}(x - x^\ast)  + \frac{\partial g}{\partial y}(y - y^\ast) \\
+    & f(x,y) =  \frac{\partial f}{\partial x}(x - x^\star)  + \frac{\partial f}{\partial y}(y - y^\star) \\
+    & g(x,y) =  \frac{\partial g}{\partial x}(x - x^\star)  + \frac{\partial g}{\partial y}(y - y^\star) \\
 \end{align*}$$
 
 If we linearize the system around a fixed point, neglecting the quadratic rest from the tayler expansion, the linearized system will predict the correct type of fixed point, as long as its a **saddle**, **node**, or **spiral**. Other cases like <font color="red">**centers**</font> may require some adapted techniques, which can be taken from the Strogatz book. 
@@ -177,12 +177,12 @@ $$ E = \frac{1}{2} m\dot{x}^2 + V(x) $$
 is, for any given solution $x(t)$, constant w.r.t. time. Systems that are governed by such a conserved quantity are <font color="red">**conservative systems**</font>. In more general words, given a system $\mathbf{\dot{x}} = \mathbf{f}(\mathbf{x})$, the real-valued and continuous function $E(x)$ is a <font color="red">**conserved quantity**</font>, if it is constant on trajectories (i.e. $dE/dt = 0$). To prevent someone from finding a function like $E(x) \equiv 0$ for every system (every system would accordingly be conservative), a second requirement for $E(x)$ is to be *nonconstant* on every open set, which defines a region in space (opposed to a trajectory, which defined a position over time).     
 
 We can show, using above defintion, that <ins>a conservative system cannot have any attracting fixed points</ins>. To this end, shortly the term <font color="red">**basin of attraction**</font> is explained:
-- given an attracting fixed point $\mathbf{\dot{x}}$, we can define its **basin of attraction** a the set of initial conditions $\mathbf{x}_0$ sucht that $\mathbf{x}(t) \rightarrow \mathbf{x}^\ast$ when $t \rightarrow \infty$.
+- given an attracting fixed point $\mathbf{\dot{x}}$, we can define its **basin of attraction** a the set of initial conditions $\mathbf{x}_0$ sucht that $\mathbf{x}(t) \rightarrow \mathbf{x}^\star$ when $t \rightarrow \infty$.
 - a basin of attraction can be separated from other basins of attraction by a <font color="red">**basin boundary**</font>. The latter can be a **stable manifold** (explained in first section) leading to some saddle point
 - if the **basin boundary** consists of more segments/ trajectories, these are commonly called  <font color="red">**separatrices**</font>.
 - basins and their boundaries partition the phase space into regions where trajectories exhibit different long-term behaviour and are therefore important. 
 
-With this definition at hand, we can say that, supposed there is an attracting fixed point $\mathbf{x}^\ast$, all the points in the corresponding basin of attraction would have to be at the same energy level as $E(\mathbf{x}^\ast)$. So, $E(\mathbf{x})$ must be a constant function for every $\mathbf{x}$ in the basin. But at the same time, there is the requirement for the conserved quantity to be nonconstant over all open sets (basin of attraction is an open set), so these things contradict each other.
+With this definition at hand, we can say that, supposed there is an attracting fixed point $\mathbf{x}^\star$, all the points in the corresponding basin of attraction would have to be at the same energy level as $E(\mathbf{x}^\star)$. So, $E(\mathbf{x})$ must be a constant function for every $\mathbf{x}$ in the basin. But at the same time, there is the requirement for the conserved quantity to be nonconstant over all open sets (basin of attraction is an open set), so these things contradict each other.
 
 Instead of attracting fixed points, one generally finds saddles and centers in conservative systems. One such example is a particle (mass $m=1$) in a double-well potential $V(x) = - \frac{1}{2}x^2 + \frac{1}{4}x^4$. Follwing the procedure in the above example, the force is $-dV/dx=x-x^3$ and accordingly the equation of motion is 
 
