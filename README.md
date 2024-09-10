@@ -1,6 +1,6 @@
 # Introduction 
 
-This repository contains a Jupyter Notebook that is an extract from [Nonlinear Dynamics and Chaos](https://www.biodyn.ro/course/literatura/Nonlinear_Dynamics_and_Chaos_2018_Steven_H._Strogatz.pdf) — a well-structured book for learning that provides an intuitive introduction to the analysis of nonlinear differential equations from a geometric perspective.
+This repository contains a Jupyter Notebook that is an extract from [Nonlinear Dynamics and Chaos](https://www.biodyn.ro/course/literatura/Nonlinear_Dynamics_and_Chaos_2018_Steven_H._Strogatz.pdf) — a well-structured book for learning, that provides an intuitive introduction to the analysis of nonlinear differential equations from a geometric perspective.
 
 While preparing for my master's thesis, I used this book to become familiar with the terminology used in the context of data-driven dynamical systems. I created this notebook as a detailed cheat sheet, including topics such as the characterization of fixed points and other fundamentals in nonlinear system analysis. Additionally, I implemented code in Julia to reproduce some of the graphics from the book and also added visualizations. The sections I focused on are ``Part II - 5 Linear systems`` and ``Part II - 6 Phase plane``.  
 
