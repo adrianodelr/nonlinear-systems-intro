@@ -271,7 +271,7 @@ function nonlinear_system_direction_field(;initial_conditions = [-0.5,1, -0.9,1,
     ns(x) = Point2f(nonlinear_system(x))
     f = Figure(size = (700, 400),fontsize = 24)
     ax = Axis(f[1, 1], xlabel=L"$x_1$",ylabel=L"$x_2$", limits = (xlims,ylims))
-    streamplot!(ax, ns, xs, ys, colormap = :Spectral, gridsize= (40,30), arrow_size = 0, linewidth=1)
+    arrows!(ax, xs, ys, ns , arrowsize = 0, lengthscale = 0.05, arrowcolor = "blue", linecolor = "blue", linewidth = 1)
     for j in 1:num_traj
         is = 2*j-1
         ie = 2*j
