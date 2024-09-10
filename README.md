@@ -16,7 +16,7 @@ The rest of this README file outlines the content of the Jupyter Notebook.
 include("utils.jl");
 ```
 
-## Concepts and examples for linear systems (applicable to monlinear systems)
+## Concepts and examples for linear systems (applicable to nonlinear systems)
 Strogatz explains the concept of the <font color="red">**phase space**</font> by starting from linear two dimensional systems. As e.g. the [*simple harmonic oscillator*](https://en.wikipedia.org/wiki/Simple_harmonic_motion), which is characterized by a linear second order differential equation:
 
 $$ \ddot{x} + \omega^2 x = 0$$
