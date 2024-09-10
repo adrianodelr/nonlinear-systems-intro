@@ -50,11 +50,11 @@ end
 State space representation of simple harmonic oscillator in continuous time. It is artificially brought in first order form by a substitution, so we can use numerical tools as rk4.  
 # Arguments
 - `x::Vector{Float64}`: System state (position, velocity)
+- `k::Float64`: spring constant
+- `m::Float64`: system mass
 """
-function simple_harmonic_oscillator(x)
+function simple_harmonic_oscillator(x;k=0.5,m=1.0)
     x,v = x[1],x[2]
-    k = 0.5     # spring constant 
-    m = 1.0     # mass 
     return [v,-(k/m)*x]
 end
 
@@ -93,11 +93,12 @@ Plot the vector field of a linear harmonic oscillator
 - `xh::Float64`: Grid step size in x-direction 
 - `yh::Float64`: Grid step size in y-direction
 """
-function linear_harmonic_oscillator_vector_field(;xlims=(-1,1),ylims=(-1,1),xh=0.15, yh=0.15)
+function linear_harmonic_oscillator_vector_field(;xlims=(-1,1),ylims=(-1,1),xh=0.15, yh=0.15,k=0.5,m=0.5)
+    sho(x) = simple_harmonic_oscillator(x,k=k,m=m)
     xxs,yys,xs,ys = coordinate_grid(xlims,ylims,xh,yh)
     f = Figure(size = (700, 400),fontsize = 24)
     ax = Axis(f[1, 1], xlabel=L"$x$ (m)",ylabel=L"$v$ (m/s)", limits = (xlims,ylims))
-    arrows!(ax, xs, ys, simple_harmonic_oscillator , arrowsize = 5, lengthscale = 0.05, arrowcolor = "black", linecolor = "black", linewidth = 1)
+    arrows!(ax, xs, ys, sho , arrowsize = 5, lengthscale = 0.05, arrowcolor = "black", linecolor = "black", linewidth = 1)
     f
     return f 
 end     
