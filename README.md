@@ -12,6 +12,7 @@ The rest of this README file outlines the content of the Jupyter Notebook.
 # Preview - Jupyter Notebook 
 
 ```julia
+# dependencies
 include("utils.jl");
 ```
 
