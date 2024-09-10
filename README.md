@@ -17,7 +17,9 @@ include("utils.jl");
 
 ## Examples and definitions in the context of linear systems (but useful for nonlinear ones)
 Strogatz explains the concept of the <font color="red">**phase space**</font> by starting from linear two dimensional systems. As e.g. the [*simple harmonic oscillator*](https://en.wikipedia.org/wiki/Simple_harmonic_motion), which is characterized by a linear second order differential equation:
+
 $$ \ddot{x} + \omega^2 x = 0$$
+
 with $\omega^2 = \frac{k}{m}$, where $k$ is the spring constant and $m$ the mass. $x$ is the displacement from the equilibrium position. This second order equation can be brought in first order form by defining $\dot{x} = v$:
 
 $$\begin{align}
@@ -113,7 +115,7 @@ If a point is Lyapunov stable **and** attracting, it is called <font color="red"
 ## The phase plane and two dimensional *nonlinear* systems
 With all these definitions at hand, we can now start the analysis of nonlinear systems, including their fixed points and topological tools for analyzing phase portraits. Analytical solutions are generally not feasible but the qualitative analysis of the phase plane can offer valuable insights. Solutions can be approximated by means of numerical methods, such as fourth-order Runge Kutta integration. 
 
-Instead of using arrows for depicting the vector field represented by a differential equation, it can be clearer to use a plot of the <font color="red">**direction field**</font>, as shown below for the system $\dot{x}_1 + x + e^{-x_2} \;, \; \dot{x}_2 = -x_2$:
+Instead of using arrows for depicting the vector field represented by a differential equation, it can be clearer to use a plot of the <font color="red">**direction field**</font>, as shown below for the system $\dot{x}_1 + x + e^{-x_2} ,  \dot{x}_2 = -x_2$ :
 
 ```julia
 nonlinear_system_direction_field(initial_conditions = [-0.5,1, -0.9,1,-2,-1, -2,-0.5 ,-1,0 ,-1.3,0 ,-0.7,0 ,-0.63215,1, -1.5,-1], h = 0.01, tf = 6, xlims=(-3,3),ylims=(-1.5,1.5),xh=0.15, yh=0.15)
