@@ -152,7 +152,7 @@ $$\begin{align*}
     & g(x,y) =  \frac{\partial g}{\partial x}(x - x^\star)  + \frac{\partial g}{\partial y}(y - y^\star) \\
 \end{align*}$$
 
-If we linearize the system around a fixed point, neglecting the quadratic rest from the tayler expansion, the linearized system will predict the correct type of fixed point, as long as its a **saddle**, **node**, or **spiral**. Other cases like <font color="red">**centers**</font> may require some adapted techniques, which can be taken from the Strogatz book. 
+If we linearize the system around a fixed point, neglecting the quadratic rest from the Taylor series expansion, the linearized system will predict the correct type of fixed point, as long as its a **saddle**, **node**, or **spiral**. Other cases like <font color="red">**centers**</font> may require some adapted techniques, which can be taken from the Strogatz book. 
 
 When not interested in the geometry of trajectories but only in stability properties, fixed points can be characterized as:
 
